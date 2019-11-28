@@ -13,8 +13,8 @@ def collectInfo() -> dict:
 	# collect inputs from the user
 	# the day of the challenge
 	day = str(input("Please enter the day of the challenge (eg: 1, 2, 3, ... ): "))
-	# ask if the file will need a input file to handle data from challenge
-	dataInput = str(input("Does todays challenge require a txt? (Y/n): "))
+	# ask if the file will need an input file to handle data from challenge
+	dataInput = str(input("Does todays challenge require an input? (Y/n): "))
 	# make sure the data is as expected
 	userInputCheck = input("Are these values correct? %s %s (y/N):" % (day, dataInput))
 	print(userInputCheck)
@@ -53,11 +53,34 @@ def createFolder(day: str) -> bool:
 
 # add default imports for python
 # conditional imports for when a txt is created (txt parsing, numpy ...)
-def createFile(fileType: str) -> bool:
-	if fileType == "py":
-		f = open("entry.py","w+")
-		f.close()
+def createFile(txt: bool = False, imports: list) -> bool:
+	standalone_imports = {
+				"csv": "lines = open('input.txt').read().split('\n')",
+				"numpy": "numpy as np",
+				"collections": "from collections import *",
+				"itertools": "from itertools import *",
+				"math": "from math import *",
+				
+				}
+	imports = {
+				"re": "re",
+				"dateutil": "dateutil",
+				"pprint": "pprint",
+				"datetime": "datetime",
 
+				}
+
+	f = open("entry.py","w+")
+	
+	for i in standalone_imports:
+		# write lines to the imports
+		pass
+
+	if txt == True:
+		t = open("input.txt", "w+")
+		t.close()
+	
+	f.close()
 	return False
 
 
