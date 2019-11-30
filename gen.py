@@ -7,6 +7,8 @@ path = os.getcwd()
 
 print("Current dir: %s" % path)
 
+dir_path = ''
+folderName = ''
 
 # function to create a directory for the day of the challenge
 def collectInfo() -> dict:
@@ -35,9 +37,14 @@ def collectInfo() -> dict:
 # function to create folder for each day
 def createFolder(day: str) -> bool:
 	path = os.getcwd()
+	global folderName
 	folderName = "day" + day
 	print(folderName)
-	path = path + "/" + folderName
+	
+	global dir_path
+	dir_path = path + "/" + folderName
+
+	print("path here -> %s" % dir_path)
 	try:
 	    os.mkdir(path)
 	except OSError:
@@ -53,10 +60,10 @@ def createFolder(day: str) -> bool:
 
 # add default imports for python
 # conditional imports for when a txt is created (txt parsing, numpy ...)
-def createFile(txt: bool = False, imports: list) -> bool:
+def createFile(imports: list, txt: bool = False) -> bool:
 	standalone_imports = {
-				"csv": "lines = open('input.txt').read().split('\n')",
-				"numpy": "numpy as np",
+				"csv": "lines = open('input.txt').read().split('\\n')",
+				"numpy": "import numpy as np",
 				"collections": "from collections import *",
 				"itertools": "from itertools import *",
 				"math": "from math import *",
@@ -69,17 +76,26 @@ def createFile(txt: bool = False, imports: list) -> bool:
 				"datetime": "datetime",
 
 				}
+	test_path = folderName + "/entry.py"
+	f = open(test_path, "w")
 
-	f = open("entry.py","w+")
+	# txt will be true when also making a txt file for data inport
+	# therefor want all the parsing imports
+	if txt == True:
+		# create text file and close it out
+		test_str = folderName + "/input.txt"
+		t = open(test_str, "w+")
+		t.close()
+
+		# import the txt file into the py file and the parsing imports
+		L = [standalone_imports['csv'] + '\n', standalone_imports['numpy'] + '\n', standalone_imports['itertools'] + '\n']
+		f.writelines(L)
+
 	
 	for i in standalone_imports:
 		# write lines to the imports
 		pass
 
-	if txt == True:
-		t = open("input.txt", "w+")
-		t.close()
-	
 	f.close()
 	return False
 
@@ -95,7 +111,7 @@ def main():
 	createFolder(info['day'])
 
 	if info['input'] == 'y':
-		pass
+		createFile([],True)
 	return
 
 
