@@ -76,8 +76,10 @@ def createFile(imports: list, txt: bool = False) -> bool:
 				"datetime": "datetime",
 
 				}
-	test_path = folderName + "/entry.py"
-	f = open(test_path, "w")
+	# test_path = folderName + "/first.py"
+	f = open("first.py", "w")
+
+	s = open("second.py", "w")
 
 	# txt will be true when also making a txt file for data inport
 	# therefor want all the parsing imports
@@ -94,9 +96,11 @@ def createFile(imports: list, txt: bool = False) -> bool:
 	
 	for i in standalone_imports:
 		# write lines to the imports
+
 		pass
 
 	f.close()
+	s.close()
 	return False
 
 

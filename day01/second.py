@@ -38,8 +38,8 @@ for line in lines:
 print("Total fuel needed: %i" % fuel_needed)
 # first try output: 4770725 CORRECT
 
-# switch the solution to recursion
 
+# switch the solution to recursion
 def fuel_calc(fuel_val: int, c_fuel: int):
 	fuel_val = fuel_val // 3 - 2
 	if fuel_val > 0:
@@ -51,5 +51,6 @@ def fuel_calc(fuel_val: int, c_fuel: int):
 sum_fuel = 0
 for line in lines: 
 	sum_fuel += fuel_calc(int(line), 0)
+# output: Recursion test formula. Expected: 4770725, actual: 4770725
 
 print("Recursion test formula. Expected: 4770725, actual: %i" % sum_fuel)
